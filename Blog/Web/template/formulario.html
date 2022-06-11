@@ -1,0 +1,24 @@
+{% extends "padre.html" %}
+
+
+{% load static  %}
+
+
+{% block contenido %}
+
+<form action="alta_usuarios" method="POST">
+    {% csrf_token %}
+    <p>Nombre: </p>
+    <input type="text" name="nombre" required>
+    <p>Apellido: </p>
+    <input type="text" name="apellido" required>
+    <p>Edad: </p>
+    <input type="number" name="edad" required>
+    <p>Fecha de Nacimiento: </p>
+    <input type="date" name="fecha_nac" required>
+
+    <input type="submit" value="Enviar">
+
+</form>
+
+{% endblock %}
