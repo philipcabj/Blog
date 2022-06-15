@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+<html>
+    <head>
+        <title>Blog</title>
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+        <link rel="stylesheet" href="{% static 'Web/css/blog.css' %}">
+    </head>
+    <body>
+        <div>
+            <h1><a href="/">Blog</a></h1>
+        </div>
+
+        {% block contenido %}
+        {% for post in post %}
+            <div class="post">
+                <div class="date">
+                    {{ post.fecha_publicacion }}
+                </div>
+                <h2><a href="">{{ post.titulo }}</a></h2>
+                <p>{{ post.texto|linebreaksbr }}</p>
+            </div>
+        {% endfor %}
+        {% endblock %}
+</html>

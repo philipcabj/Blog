@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.http import request
 from django.shortcuts import redirect, render
 from Web.models import Usuarios
-
+from django.shortcuts import render, get_object_or_404
 from Web.models import Usuarios, Post, Valoracion
 from django.template import loader
 from Web.forms import Formulario_usuarios, Formulario_noticias, Formulario_valoracion
@@ -13,6 +13,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .forms import PostForm
 from django.shortcuts import redirect
+from .models import Post
+from django.utils import timezone
 
 
 # Create your views here.
@@ -128,12 +130,43 @@ def post_new(request):
             form = PostForm(request.POST)
             if form.is_valid():
                 post = form.save(commit=False)
-                post.author = request.user
-                post.published_date = timezone.now()
+                post.autor = request.user
+                post.fecha_publicacion = timezone.now()
                 post.save()
-                return redirect('post_detail', pk=post.pk)
+                return redirect('post_detalle', pk=post.pk)
         else:
             form = PostForm()
         return render(request, 'formulario_post.html', {'form': form})
 
 
+def post_list(request):
+    #posts = Post.objects.all()
+    #tabla = {"Post" : posts}
+    #plantilla = loader.get_template("post_list.html")
+    #documento = plantilla.render(tabla)
+    #return HttpResponse(documento)
+
+
+    posts = Post.objects.all()
+    #posts = Post.objects.filter(fecha_publicacion__icontains = timezone.now()).order_by('fecha_publicacion')
+    return render(request, 'post_list.html', {'post': posts})
+
+
+def post_detalle(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+    return render(request, 'post_detalle.html', {'post': post})
+
+
+def post_edit(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+    if request.method == "POST":
+        form = PostForm(request.POST, instance=post)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.autor = request.user
+            post.fecha_publicacion = timezone.now()
+            post.save()
+            return redirect('post_detalle', pk=post.pk)
+    else:
+        form = PostForm(instance=post)
+    return render(request, 'post_edit.html', {'form': form})

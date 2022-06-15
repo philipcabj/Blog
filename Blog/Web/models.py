@@ -1,5 +1,7 @@
 from django.conf import settings
 from django.db import models
+from django.utils import timezone
+
 
 # Create your models here.
 class Usuarios(models.Model):
@@ -13,9 +15,7 @@ class Valoracion(models.Model):
     puntaje = models.IntegerChoices
     comentarios = models.CharField(max_length=100)
 
-    from django.conf import settings
-from django.db import models
-from django.utils import timezone
+
 
 
 class Post(models.Model):
@@ -28,7 +28,7 @@ class Post(models.Model):
             blank=True, null=True)
 
     def publish(self):
-        self.published_date = timezone.now()
+        self.fecha_publicacion = timezone.now()
         self.save()
 
     def __str__(self):
