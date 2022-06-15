@@ -140,12 +140,6 @@ def post_new(request):
 
 
 def post_list(request):
-    #posts = Post.objects.all()
-    #tabla = {"Post" : posts}
-    #plantilla = loader.get_template("post_list.html")
-    #documento = plantilla.render(tabla)
-    #return HttpResponse(documento)
-
 
     posts = Post.objects.all()
     #posts = Post.objects.filter(fecha_publicacion__icontains = timezone.now()).order_by('fecha_publicacion')

@@ -10,19 +10,25 @@
         <link rel="stylesheet" href="{% static 'Web/css/blog.css' %}">
     </head>
     <body>
-        <div>
+        <div class="page-header">
             <h1><a href="/">Blog</a></h1>
         </div>
 
         {% block contenido %}
-        {% for post in post %}
-            <div class="post">
-                <div class="date">
-                    {{ post.fecha_publicacion }}
+        <div class="content container">
+            <div class="row">
+                <div class="col-md-8">
+                    {% for post in post %}
+                        <div class="post">
+                            <div class="date">
+                                <p>publicado: {{ post.fecha_publicacion}}</p>
+                            </div>
+                            <h2><a href="{% url 'post_detalle' pk=post.pk %}">{{ post.titulo }}</a></h2>
+                            <p>{{ post.texto|linebreaksbr }}</p>
+                        </div>
+                    {% endfor %}
                 </div>
-                <h2><a href="">{{ post.titulo }}</a></h2>
-                <p>{{ post.texto|linebreaksbr }}</p>
             </div>
-        {% endfor %}
+        </div>
         {% endblock %}
 </html>
