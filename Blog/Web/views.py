@@ -21,7 +21,7 @@ from django.utils import timezone
 
 def inicio (request):
     
-    return render(request, "template.html")
+    return render(request, "padre.html")
 
 #@login_required
 def usuario (request):
