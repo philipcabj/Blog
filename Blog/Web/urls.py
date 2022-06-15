@@ -17,7 +17,7 @@ urlpatterns = [
     path("registro", views.registro, name="registro"),
     path("buscar_post", views.buscar_post),
     path("buscar", views.buscar),
-    path("loguot", LogoutView.as_view(template_name="logout.html"), name="Logout"),
+    path("logout", LogoutView.as_view(template_name="logout.html"), name="logout"),
     path('post_new', views.post_new, name='post_new'),
     path('post_list', views.post_list, name='post_list'),
     #path('', views.post_list, name='post_list'),

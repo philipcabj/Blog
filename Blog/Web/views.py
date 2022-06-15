@@ -1,4 +1,5 @@
 from datetime import timezone
+from unicodedata import name
 from django.http import HttpResponse
 from django.http import request
 from django.shortcuts import redirect, render
@@ -15,6 +16,8 @@ from .forms import PostForm
 from django.shortcuts import redirect
 from .models import Post
 from django.utils import timezone
+from django.contrib.auth.views import LogoutView
+
 
 
 # Create your views here.
@@ -78,7 +81,7 @@ def login_request (request):
 
             if user is not None:
                 login(request, user)
-                return render(request, "inicio.html", {"mensaje": f"Bienvenido {usuario}"})
+                return render(request, "padre.html", {"form":form})
 
         else:
             return HttpResponse("Usuario Incorrecto")
@@ -99,7 +102,9 @@ def registro(request):
         form = UserCreationForm(request.POST)
         if form.is_valid():
             form.save()
-            return HttpResponse("Usuario Creado")
+            #return HttpResponse("Usuario Creado")
+            #return redirect('padre', foo='bar')
+            return render(request, "padre.html", {"form":form})
             #return messages.success(request, 'Usuario creado con exito!')
 
     else:
@@ -141,8 +146,8 @@ def post_new(request):
 
 def post_list(request):
 
-    posts = Post.objects.all()
-    #posts = Post.objects.filter(fecha_publicacion__icontains = timezone.now()).order_by('fecha_publicacion')
+    #posts = Post.objects.all()
+    posts = Post.objects.filter(fecha_publicacion__lte = timezone.now()).order_by('fecha_publicacion')
     return render(request, 'post_list.html', {'post': posts})
 
 
@@ -164,3 +169,4 @@ def post_edit(request, pk):
     else:
         form = PostForm(instance=post)
     return render(request, 'post_edit.html', {'form': form})
+
