@@ -4,4 +4,5 @@ from .models import *
 
 admin.site.register(Usuarios)
 admin.site.register(Post)
-admin.site.register(Valoracion)
+admin.site.register(Comentarios)    
+

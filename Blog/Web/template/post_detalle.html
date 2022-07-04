@@ -1,16 +1,42 @@
 {% extends 'padre.html' %}
 
+{% load static %}
+<script type="text/javascript" src="{% static 'ckeditor/ckeditor-init.js' %}"></script>
+<script type="text/javascript" src="{% static 'ckeditor/ckeditor/ckeditor.js' %}"></script>
+
+
 {% block contenido %}
     <div class="post">
         {% if post.fecha_publicacion %}
             <div class="date">
-                {{ post.fecha_publicacion }}
+                {{ post.fecha_publicacion | safe }}
             </div>
         {% endif %}
         {% if user.is_authenticated %}
         <a class="btn btn-default" href="{% url 'post_edit' pk=post.pk %}"><span class="glyphicon glyphicon-pencil"></span></a>
         {% endif %}
-        <h2>{{ post.titulo }}</h2>
-        <p>{{ post.texto|linebreaksbr }}</p>
+        <h2>{{ post.titulo | safe }}</h2>
+        <p>{{ post.texto|safe }}</p>
     </div>
+
+    <hr>
+    <a class="btn btn-default" href="{% url 'agregar_comentario' pk=post.pk %}">Agregar Comentario</a>
+    {% for comment in post.comentarios.all %}
+    
+            <div class="comment">
+                <div class="date">
+                    
+                    {{ comment.fecha_creacion | safe }} 
+                
+                        <a class="btn btn-default" href="{% url 'comentario_removido' pk=post.pk %}"><span class="glyphicon glyphicon-remove"></span></a>
+                        <a class="btn btn-default" href="{% url 'comentario_aprovado' pk=post.pk %}"><span class="glyphicon glyphicon-ok"></span></a>
+                </div>
+            </div>
+            <strong>{{ comment.autor | safe }}</strong>
+            <p>{{ comment.texto| safe }}</p>
+    {% empty %}
+    
+        <p>No hay comentarios aun :(</p>
+    
+    {% endfor %}
 {% endblock %}

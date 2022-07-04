@@ -9,26 +9,51 @@
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
         <link rel="stylesheet" href="{% static 'Web/css/blog.css' %}">
     </head>
-    <body>
+    
         <div class="page-header">
             <h1><a href="/">Blog</a></h1>
         </div>
 
         {% block contenido %}
-        <div class="content container">
-            <div class="row">
-                <div class="col-md-8">
+    <body>
+        <div class="col-3 offset-9">
+            <div>
+               <font size="5">
+                       <a style="color:#FF0000" class="navbar-brand" href="{% url 'lista_post' %}">Lista</a>
+                       <a class="navbar-brand" href="{% url 'post_list' %}">Post</a>
+               </font>
+           </div>   
+       </div>
+       <a href="{% url 'post_new'  %}" class="btn btn-primary float-right">Nuevo Post</a>
+       <br>
+       <br>
+       <br>
+       <br>
+
+       <div align="Center">
                     {% for post in post %}
-                        <div class="post">
-                            <div class="date">
-                                <p>publicado: {{ post.fecha_publicacion}}</p>
-                            </div>
-                            <h2><a href="{% url 'post_detalle' pk=post.pk %}">{{ post.titulo }}</a></h2>
-                            <p>{{ post.texto|linebreaksbr }}</p>
+                    <br>
+                        <div class="date" >
+                            <FONT SIZE=3>
+                                    publicado: {{ post.fecha_publicacion | safe}} &nbsp &nbsp &nbsp 
+                                    {% if user.is_authenticated %}
+                                    por el usuario: &nbsp &nbsp
+                                        <b><i>{{post.autor | safe}} </i></b>
+                                    {% endif %}
+                            </FONT>  
+                                
+                            
+                                <h2><FONT SIZE=6><a href="{% url 'post_detalle' pk=post.pk %}">{{ post.titulo | safe}}</a></h2>
+                                </FONT><p>{{ post.texto | safe }}</p>
+                                
+                                <a href="{% url 'post_detalle' pk=post.pk %}" class="">Comentarios:  {{  post.comentarios.count }}</a>  
+                            
                         </div>
                     {% endfor %}
-                </div>
-            </div>
+
         </div>
         {% endblock %}
+        <br>
+        <br>
+        <br>
 </html>

@@ -24,32 +24,114 @@
         
         <nav class="navbar navbar-light bg-light static-top">
             <div class="container">
+                <!-- Rectangular switch -->
                 <a class="navbar-brand" href="{% url 'post_list' %}">Home</a>
-                <a class="navbar-brand" href="{% url 'usuarios' %}">Usuarios</a>
-                <a class="navbar-brand" href="{% url 'contacto' %}">Contactenos</a>
+                <a class="navbar-brand" href="{% url 'list_users' %}">Usuarios</a>
+                <a class="navbar-brand" href="{% url 'about' %}">About</a>
                 {% if user.is_authenticated %}
-                    <a class="btn btn-primary" href="{% url 'logout' %}">Salir</a>
+                    </p><b><i>Bienvenido   {{ user.first_name }} !! </i></b>
+                    <img src="{{user.foto.url}}" width="70" height="40" alt="">
+                    <a class="" href="{% url 'logout' %}">Cerrar Sesion</a></p>
+                    <!-- <a class="btn btn-primary" href="{% url 'logout' %}">Salir</a>-->
                 {% else %}
-                    <a class="btn btn-primary" href="{% url 'login' %}">Login</a>
+                    <!-- <a class="btn btn-primary" href="{% url 'login' %}">Ingresar</a>-->
+                   <div>
+                    </p><b><i>No estas logueado</i></b>
+                    <a class="navbar-brand" href="{% url 'login' %}">Iniciar Sesion</a>
+                    <a class="navbar" href="{% url 'registro' %}">Registrate</a></p>
+                   </div>
+                    
                 {% endif %}
             </div>
         </nav>
         <!-- Masthead--> 
         <header class="page-header">
-            {% if user.is_authenticated %}
-            <a href="{% url 'post_new' %}" class="top-menu"><span class="glyphicon glyphicon-plus"></span></a>
-            {% endif %}
-
+           <!--  {% if user.is_authenticated %}-->
+                <div class="mt-3">
+                    <div class="row mb-3">
+                        
+                        <h1><a class="" href="{% url 'post_list' %}">Bienvenidos al Blog CoderFinals</a></h1>
+                        <!-- Barra de busqueda-->
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-12" search>
+                                    <form action="" method="get">
+                                        <div id="custom-search-input">
+                                            <div class="input-group col-md-12">
+                                                    <input type="text" class="form-control" placeholder="Buscar..." name="buscar" value="{{request.GET.buscar}}">
+                                                    <span class="input-group-list">
+                                                            <i class="icon icon-search">
+                                                                <button type="submit" >Buscar</button>
+    
+                                                            </i>
+                                                    </span>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <!--{% endif %}-->
         </header>
-        <!-- Icons Grid-->
+       
+        
+        <!--<div style="display:inline-block"  align="left" >
+            <label>Lista / Post</label>
+            <form action="lista_post.html"></form>
+            <a href="{% url 'toggle-status' %}"></a>
+                <label  class="switch">
+                    <input type="checkbox" href="{% url 'toggle-status' %}">
+                    <span class="slider round"></span>
+                </label>
+            </a>
+      </div>-->
+
         
 
 
+
+        <!-- Mensajes-->
+        {% if messages %}
+            {% for message in message %}
+                <div class="notification {{message.tags}}">
+                    {{message}}
+                </div>
+            {% endfor %}
+        {% endif %}
+
+        <!-- Bloque-->
         {% block contenido %}
 
 
 
         {% endblock %}
+
+        <!-- Paginas-->
+        <br>
+        <br>
+        <div class="row">
+            <div class="col-md-12 col-lg-12 col-xs-12">
+                <div class="col-md-6 col-sm-6 col-lg-6 col-xs-6 float-left"></div>
+                {% if post.has_previous %}
+                    <div class="clearfix">
+                        <a href="?page={{post.previous_page_number}}" class="btn btn-primary float-left">Anterior</a>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12 col-lg-12 col-xs-12">
+                <div class="col-md-6 col-sm-6 col-lg-6 col-xs-6 float-right"></div>
+                {% if post.has_next %}
+                    <div class="clearfix">
+                        <a href="?page={{post.next_page_number}}" class="btn btn-primary float-right">Siguiente</a>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
 
         <!-- Footer-->
         <footer class="footer bg-light">
@@ -57,7 +139,7 @@
                 <div class="row">
                     <div class="col-lg-6 h-100 text-center text-lg-start my-auto">
                         <ul class="list-inline mb-2">
-                            <li class="list-inline-item"><a href="#!">About</a></li>
+                            <li class="list-inline-item"><a href="{% url 'about' %}">About</a></li>
                             <li class="list-inline-item">⋅</li>
                             <li class="list-inline-item"><a href="#!">Contact</a></li>
                             <li class="list-inline-item">⋅</li>

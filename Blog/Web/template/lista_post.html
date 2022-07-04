@@ -1,0 +1,73 @@
+{% extends "padre.html"   %} 
+
+{% load static %}
+
+
+{% block contenido %}
+
+<div class="col-3 offset-9">
+     <div>
+        <font size="5">
+                <a style="color:#FF0000" class="navbar-brand" href="{% url 'lista_post' %}">Lista</a>
+                <a class="navbar-brand" href="{% url 'post_list' %}">Post</a>
+        </font>
+    </div>   
+  
+</div>
+<a href="{% url 'registro'  %}" class="btn btn-primary float-right">Nuevo Post</a>
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Titulo</th>
+            <th scope="col">Autor</th>
+            <th scope="col">Fecha</th>
+            <th scope="col">Comentarios</th>
+
+          </tr>
+        </thead>
+        <tbody>
+
+            {%  for n in post %}
+
+            
+            <tr>
+                <th scope="row">{{n.id}}</th>
+                <td><a href="{% url 'post_detalle' n.id %}">{{n.titulo}}</a></td>
+                <td>{{n.autor}}</td>
+                <td>{{n.fecha_publicacion}}</td>    
+                <td><a href="{% url 'post_detalle' n.id %}">{{n.comentarios.count}}</a></td>
+                <td>
+                  <a class="btn btn-primary" href="{% url 'post_edit' n.id %}" >Editar</a>
+                  <a class="btn btn-danger" href="{% url 'eliminar_post' %}" >Eliminar</a>
+                </td>
+            </tr>
+            {% endfor %}
+
+        </tbody>
+      </table>  
+
+
+{% endblock %}
+
+<div class="row">
+  <div class="col-md-12 col-lg-12 col-xs-12">
+      <div class="col-md-6 col-sm-6 col-lg-6 col-xs-6 float-left"></div>
+      {% if post.has_previous %}
+          <div class="clearfix">
+              <a href="?page={{post.previous_page_number}}" class="btn btn-primary float-left">Anterior</a>
+          </div>
+      {% endif %}
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12 col-lg-12 col-xs-12">
+      <div class="col-md-6 col-sm-6 col-lg-6 col-xs-6 float-right"></div>
+      {% if post.has_next %}
+          <div class="clearfix">
+              <a href="?page={{post.next_page_number}}" class="btn btn-primary float-left">Siguiente</a>
+          </div>
+      {% endif %}
+  </div>
+</div>

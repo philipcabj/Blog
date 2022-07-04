@@ -1,0 +1,20 @@
+{% extends 'padre.html' %}
+
+{% block head %}
+<title>Usuarios</title>
+{% endblock %}
+
+{% block contenido %}
+<div class="container">
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <table>
+    
+        {{form.as_p}}
+        </table>
+        <button type="submit">Submit</button>
+    </form>
+    <br>
+</div>
+
+{% endblock %}

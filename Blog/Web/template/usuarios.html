@@ -1,9 +1,35 @@
 {% extends "padre.html"   %} 
+<div class="row">
+  <div class="col-md-12 col-lg-12 col-xs-12">
+      <div class="col-md-6 col-sm-6 col-lg-6 col-xs-6 float-left"></div>
+      {% if user.has_previous %}
+          <div class="clearfix">
+              <a href="?page={{post.previous_page_number}}" class="btn btn-primary float-left">Anterior</a>
+          </div>
+      {% endif %}
+  </div>
+</div>
 
+<div class="row">
+  <div class="col-md-12 col-lg-12 col-xs-12">
+      <div class="col-md-6 col-sm-6 col-lg-6 col-xs-6 float-right"></div>
+      {% if user.has_next %}
+          <div class="clearfix">
+              <a href="?page={{post.next_page_number}}" class="btn btn-primary float-left">Siguiente</a>
+          </div>
+      {% endif %}
+  </div>
+</div>
 {% load static %}
 
 
+
 {% block contenido %}
+
+<div class="col-3 offset-9">
+                            
+  <a href="{% url 'registro'  %}" class="btn btn-primary float-right">Crear Nuevo Usuario</a>
+</div>
 
     <table class="table">
         <thead>
@@ -11,26 +37,33 @@
             <th scope="col">#</th>
             <th scope="col">Nombre</th>
             <th scope="col">Apellido</th>
-            <th scope="col">Edad</th>
-            <th scope="col">Fecha de Nacimiento</th>
+            <th scope="col">Email</th>
+            <th scope="col">Usuario</th>
+            <th scope="col">Foto</th>
+            <th scope="col">Acciones</th>
           </tr>
         </thead>
         <tbody>
 
-            {%  for n in Usuarios %}
+            {%  for n in usuarios %}
 
             
             <tr>
                 <th scope="row">{{n.id}}</th>
-                <td>{{n.nombre}}</td>
-                <td>{{n.apellido}}</td>
-                <td>{{n.edad}}</td>
-                <td>{{n.fecha_nac}}</td>
-              </tr>
+                <td>{{n.first_name}}</td>
+                <td>{{n.last_name}}</td>
+                <td>{{n.email}}</td>
+                <td>{{n.username}}</td>
+                <td><img src="{{n.foto.url}}" width="80" height="50" alt=""></td>
+                <td>
+                  <a class="btn btn-primary" href="{% url 'edit_user' n.id %}" >Editar</a>
+                  <a class="btn btn-danger" href="{% url 'eliminar_user' n.id %}" >Eliminar</a>
+                </td>
+            </tr>
             {% endfor %}
 
         </tbody>
-      </table>
-
+      </table>  
 
 {% endblock %}
+

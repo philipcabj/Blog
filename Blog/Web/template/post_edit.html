@@ -1,8 +1,17 @@
 {% extends 'padre.html' %}
 
+{% load static %}
+
+<script type="text/javascript" src="{% static 'ckeditor/ckeditor-init.js' %}"></script>
+<script type="text/javascript" src="{% static 'ckeditor/ckeditor/ckeditor.js' %}"></script>
 {% block contenido %}
-    <h2>New post</h2>
-    <form method="POST" class="post-form">{% csrf_token %}
+    <h2>{{post.titulo}}</h2>
+    <br>
+    <form method="POST" class="post-form">
+        
+        {% csrf_token %}
+        
+        {{form.media}}
         {{ form.as_p }}
         <button type="submit" class="save btn btn-default">GUARDAR</button>
     </form>

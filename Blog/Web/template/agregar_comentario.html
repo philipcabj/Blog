@@ -1,0 +1,24 @@
+{% extends 'padre.html' %}
+
+{% load static %}
+
+<script type="text/javascript" src="{% static 'ckeditor/ckeditor-init.js' %}"></script>
+{% block contenido %}
+
+<div align="Center" >
+    <h1>Nuevo Comentario</h1>
+    <br>
+    
+    <form method="POST" class="post-form" >
+        {{ post.autor | safe }}
+        {% csrf_token %}
+        
+
+        {{form.media}}
+        {{form.as_p}}
+
+        <button type="submit" class="save btn btn-default">ENVIAR</button>
+    </form>
+
+</div>
+{% endblock %}

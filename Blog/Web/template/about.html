@@ -1,0 +1,40 @@
+
+{% extends "padre.html"   %} 
+
+
+{% block contenido %}
+
+
+    <form align="Center" class="form" method="post" style = "width: 50%;">
+        {% csrf_token %}
+     
+        <div class="container">
+          <center>
+            <h1><a>Acerca de:</a></h1>
+            <hr>
+                <h2 >
+                    <p>
+                      <b>
+                        <font size="3">
+                          <font face="Verdana">
+                            
+                      Mi Nombre es Franco Guarino, estoy casado con Ludmila y tenemos un hijo, Ulises, lo mejor que me paso en la vida. 
+                      hincha de Boca como toda persona de bien, jaja, soy fanatico de los videojuegos, 
+                      trabajo como Product Owner, Jefe de Producto, Product Manager, si.. tiene muchos nombres el rol.
+                      Me anote en el curso de Python porque si bien tengo conocimientos en desarrollo, .NET, asp.net, 
+                      bscripting, android studio, y alguno mas que estudie tanto en la facu como en la secundaria.. 
+                      ya de eso hace rato jajaja. Lo raro es que nunca me dedique a trabajar como desarrollador, 
+                      quiza porque el camino laboral me llevo para otros rumbos y veo que es dificil arrancar ahora de junior.
+                      De todas maneras, me gusta mantenerme actualizado de las tecnologias y lenguajes de programacion ademas me ayudan como
+                      herramienta en todos los trabajos que he tenido.
+
+                      Respecto a este curso, se noto la diferencia cuando se cambio de profesor, lo lamento por el anterior pero Maxi la rompe. 
+                      Clases dinamicas, buenos ejemplos, claridad en los temas, buena predisposicion, un genio. Gracias!.</font></font></b></p>
+                </a>
+              </center>      
+              </div>
+        
+    </form>
+
+
+{% endblock %}
