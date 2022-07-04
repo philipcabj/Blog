@@ -42,13 +42,13 @@ def usuario (request):
 
 def list_users(request):
     queryset = request.GET.get("buscar")
-    #posts = Post.objects.all()
+
     usuarios = Usuarios.objects.all()
 
     if queryset:
         usuarios = Usuarios.objects.filter(Q(first_name__icontains = queryset) | Q(username__icontains = queryset)).distinct()
 
-    paginacion = Paginator(usuarios, 5)
+    paginacion = Paginator(usuarios, 20)
     pagina = request.GET.get('page')
     usuarios = paginacion.get_page(pagina)
 
@@ -139,6 +139,7 @@ def edit_user (request, id):
         return redirect('list_users')
     return render(request, 'registro.html', {'form':form})
 
+@login_required
 def eliminar_user(request, id):
     user = Usuarios.objects.get(id=id)
     if request.method == "POST":
@@ -147,13 +148,28 @@ def eliminar_user(request, id):
     return render(request, 'eliminar_user.html')
 
 
-def eliminar_post(request):
-	post_id = int(request.POST['id'])		# Convierte el id en entero
-	post = get_object_or_404(Post, pk=post_id)	# Obtiene el post por el id
-	post.delete()				# Elimina el post
+def eliminar_post(request, id):
+    post = Post.objects.get(id=id)
+    if request.method == "POST":
+        post.delete()
+        return redirect('lista_post')
+    return render(request, 'eliminar_post.html')
+   
 
-	return redirect('post_list')			# Redirecciona a la vista de la lista de posts      
-
+@login_required
+def post_edit(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+    if request.method == "POST":
+        form = PostForm(request.POST, instance=post)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.autor = request.user
+            post.fecha_publicacion = timezone.now()
+            post.save()
+            return redirect('post_detalle', pk=post.pk)
+    else:
+        form = PostForm(instance=post)
+    return render(request, 'post_edit.html', {'form': form})
 
 @login_required
 def post_new(request):
@@ -205,20 +221,6 @@ def post_detalle(request, pk):
     post = get_object_or_404(Post, pk=pk)
     return render(request, 'post_detalle.html', {'post': post})
 
-@login_required
-def post_edit(request, pk):
-    post = get_object_or_404(Post, pk=pk)
-    if request.method == "POST":
-        form = PostForm(request.POST, instance=post)
-        if form.is_valid():
-            post = form.save(commit=False)
-            post.autor = request.user
-            post.fecha_publicacion = timezone.now()
-            post.save()
-            return redirect('post_detalle', pk=post.pk)
-    else:
-        form = PostForm(instance=post)
-    return render(request, 'post_edit.html', {'form': form})
 
 
 

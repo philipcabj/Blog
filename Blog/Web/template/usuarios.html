@@ -1,34 +1,13 @@
 {% extends "padre.html"   %} 
-<div class="row">
-  <div class="col-md-12 col-lg-12 col-xs-12">
-      <div class="col-md-6 col-sm-6 col-lg-6 col-xs-6 float-left"></div>
-      {% if user.has_previous %}
-          <div class="clearfix">
-              <a href="?page={{post.previous_page_number}}" class="btn btn-primary float-left">Anterior</a>
-          </div>
-      {% endif %}
-  </div>
-</div>
 
-<div class="row">
-  <div class="col-md-12 col-lg-12 col-xs-12">
-      <div class="col-md-6 col-sm-6 col-lg-6 col-xs-6 float-right"></div>
-      {% if user.has_next %}
-          <div class="clearfix">
-              <a href="?page={{post.next_page_number}}" class="btn btn-primary float-left">Siguiente</a>
-          </div>
-      {% endif %}
-  </div>
-</div>
 {% load static %}
 
-
+<html>
 
 {% block contenido %}
 
-<div class="col-3 offset-9">
-                            
-  <a href="{% url 'registro'  %}" class="btn btn-primary float-right">Crear Nuevo Usuario</a>
+<div class="col-3 offset-9">                           
+  <a href="{% url 'registro'  %}" class="btn btn-primary float-right">Nuevo Usuario</a>
 </div>
 
     <table class="table">
@@ -65,5 +44,29 @@
         </tbody>
       </table>  
 
+      <div class="row">
+        <div class="col-md-12 col-lg-12 col-xs-12">
+            <div class="col-md-6 col-sm-6 col-lg-6 col-xs-6 float-left"></div>
+            {% if user.has_previous %}
+                <div class="clearfix">
+                    <a href="?page={{user.previous_page_number}}" class="btn btn-primary float-left">Anterior</a>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12 col-lg-12 col-xs-12">
+            <div class="col-md-6 col-sm-6 col-lg-6 col-xs-6 float-right"></div>
+            {% if user.has_next %}
+                <div class="clearfix">
+                    <a href="?page={{user.next_page_number}}" class="btn btn-primary float-right">Siguiente</a>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
 {% endblock %}
 
+
+</html>

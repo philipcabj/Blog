@@ -12,7 +12,7 @@ from ckeditor.fields import RichTextField
 
 # Create your models here.
 class Usuarios(AbstractUser):
-    foto = models.ImageField(upload_to= 'images/', null=True, blank=False, default='avatar.png')
+    foto = models.ImageField(upload_to= 'media/images/', null=True, blank=False, default='avatar.png')
     
 
     def getImage (self):

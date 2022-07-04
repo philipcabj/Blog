@@ -14,7 +14,7 @@
     </div>   
   
 </div>
-<a href="{% url 'registro'  %}" class="btn btn-primary float-right">Nuevo Post</a>
+<a href="{% url 'post_new'  %}" class="btn btn-primary float-right">Nuevo Post</a>
     <table class="table">
         <thead>
           <tr>
@@ -39,7 +39,7 @@
                 <td><a href="{% url 'post_detalle' n.id %}">{{n.comentarios.count}}</a></td>
                 <td>
                   <a class="btn btn-primary" href="{% url 'post_edit' n.id %}" >Editar</a>
-                  <a class="btn btn-danger" href="{% url 'eliminar_post' %}" >Eliminar</a>
+                  <a class="btn btn-danger" href="{% url 'eliminar_post' n.id %}" >Eliminar</a>
                 </td>
             </tr>
             {% endfor %}

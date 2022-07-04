@@ -133,6 +133,29 @@
             </div>
         </div>
 
+        <div class="row">
+            <div class="col-md-12 col-lg-12 col-xs-12">
+                <div class="col-md-6 col-sm-6 col-lg-6 col-xs-6 float-left"></div>
+                {% if user.has_previous %}
+                    <div class="clearfix">
+                        <a href="?page={{user.previous_page_number}}" class="btn btn-primary float-left">Anterior</a>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12 col-lg-12 col-xs-12">
+                <div class="col-md-6 col-sm-6 col-lg-6 col-xs-6 float-right"></div>
+                {% if user.has_next %}
+                    <div class="clearfix">
+                        <a href="?page={{user.next_page_number}}" class="btn btn-primary float-right">Siguiente</a>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+
+
         <!-- Footer-->
         <footer class="footer bg-light">
             <div class="container">

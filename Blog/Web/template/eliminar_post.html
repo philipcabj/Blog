@@ -1,0 +1,16 @@
+{% extends "padre.html"   %} 
+
+
+{% block contenido %}
+
+    
+    <form class="form" method="post">
+
+        {% csrf_token %}
+        <h3>¿Desea Eliminar el post {{post.titulo}}?</h3>
+        <button class="btn btn-danger" type="submit">Si, Eliminar</button>
+        <a class="btn btn-default" href="{% url 'lista_post' %}">Cancelar</a>
+    </form>
+
+
+{% endblock %}
